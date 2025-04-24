@@ -1,3 +1,8 @@
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
+@import url('../css/plugins/bootstrap.min.css');
+@import url('../css/plugins/owl.carousel.css');
+@import url('../css/plugins/magnific-popup.css');
+@import url('../css/plugins/jquery.countdown.css');
+@import url('../css/template/style.css');
+@import url('../css/template/skins/skin-demo-25.css');
+@import url('../css/template/demos/demo-25.css');
+

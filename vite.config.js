@@ -4,8 +4,34 @@ import laravel from 'laravel-vite-plugin';
 export default defineConfig({
     plugins: [
         laravel({
-            input: ['resources/css/app.css', 'resources/js/app.js'],
+            input: [
+                // css files
+                'resources/css/app.css',
+                'resources/css/plugins/bootstrap.min.css',
+                'resources/css/plugins/owl-carousel/owl.carousel.css',
+                'resources/css/plugins/magnific-popup/magnific-popup.css',
+                'resources/css/plugins/jquery.countdown.css',
+                'resources/css/template/style.css',
+                'resources/css/template/skins/skin-demo-25.css',
+                'resources/css/template/demos/demo-25.css',
+
+                // js files
+                'resources/js/app.js',
+                'resources/js/plugins/jquery.min.js',
+                'resources/js/plugins/bootstrap.bundle.min.js',
+                'resources/plugins/jquery.hoverIntent.min.js',
+                'resources/plugins/jquery.waypoints.min.js',
+                'resources/plugins/superfish.min.js',
+                'resources/plugins/bootstrap-input-spinner.js',
+                'resources/plugins/owl.carousel.min.js',
+                'resources/plugins/jquery.plugin.min.js',
+                'resources/plugins/jquery.magnific-popup.min.js',
+                'resources/template/main.js',
+            ],
             refresh: true,
         }),
     ],
+    build: {
+        assetsInclude: ['**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.gif', '**/*.svg']
+    }
 });
