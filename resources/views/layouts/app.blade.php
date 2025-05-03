@@ -20,8 +20,8 @@
     <div class="mobile-menu-overlay"></div><!-- End .mobil-menu-overlay -->
     @include('layouts.partials._mobile_menu')
     <!-- Sign in / Register Modal -->
-    @include('modals.auth')
-    @include('modals.newsletter')
+    @include('modals.signin-modal')
+    <!-- @include('modals.newsletter') -->
 
     @vite(['resources/js/app.js'])
     @yield('script')

@@ -12,16 +12,17 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('orders', function (Blueprint $table) {
-            $table->id();
+            $table->uuid('id')->primary();
+            $table->string('order_number', 100);
             $table->unsignedBigInteger('user_id')->nullable();
             $table->enum('payment_method', ['credit_card', 'paypal', 'bank_transfer', 'cod']);
             $table->date('order_date')->nullable();
             $table->string('tracking_number')->nullable();
-            $table->decimal('total_amount', 10, 2);
+            $table->decimal('subtotal_amount', 10, 2);
             $table->decimal('shipping_amount', 10, 2)->default(0);
             $table->decimal('tax_amount', 10, 2)->default(0);
             $table->decimal('discount_amount', 10, 2)->default(0);
-            $table->decimal('grand_total_amount', 10, 2);
+            $table->decimal('total_amount', 10, 2);
             $table->unsignedBigInteger('shipping_address_id')->nullable();
             $table->unsignedBigInteger('billing_address_id')->nullable();
             $table->string('notes', 2500)->nullable();

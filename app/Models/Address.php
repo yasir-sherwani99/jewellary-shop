@@ -21,4 +21,14 @@ class Address extends Model
         'country',
         'is_default'
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
+    public function setCountryAttribute($value)
+    {
+        $this->attributes['country'] = ucfirst($value);
+    }
 }

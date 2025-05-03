@@ -17,7 +17,13 @@
                 <li>
                     <a href="#">Links</a>
                     <ul>
-                        <li class="account-links font-weight-normal"><a href="#signin-modal" data-toggle="modal"><i class="icon-user d-none d-lg-block"></i>Login</a></li>
+                        <li class="account-links font-weight-normal">
+                            @if(auth()->check()) 
+                                <a href="{{ route('dashboard') }}"><i class="la la-dashboard d-none d-lg-block"></i>Dashboard</a>
+                            @else
+                                <a href="{{ route('login') }}"><i class="la la-sign-in-alt d-none d-lg-block"></i>Login</a> 
+                            @endif
+                        </li>
                         <li>
                             <div class="header-dropdown">
                                 <a href="#">USD</a>

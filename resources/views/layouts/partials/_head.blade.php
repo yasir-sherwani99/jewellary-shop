@@ -2,7 +2,7 @@
 	<meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    
+    <meta name="csrf-token" content="{{ csrf_token() }}">
     <title>Molla - Bootstrap eCommerce Template</title>
 
     <script>
@@ -31,8 +31,16 @@
     <meta name="msapplication-TileColor" content="#cc9966">
     <meta name="msapplication-config" content="{{ asset('assets/images/icons/browserconfig.xml') }}">
     <meta name="theme-color" content="#ffffff">
-    @vite(['resources/css/app.css'])
-    <!-- For line-awesome (if not processed through Vite) -->
+    
+    @if(request()->is('cart-page', 'checkout', 'wishlists', 'product/*'))
+        @vite(['resources/css/cart.css'])
+    @else
+        @vite(['resources/css/app.css'])
+    @endif
+    <!-- For line-awesome -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/line-awesome/line-awesome/line-awesome/css/line-awesome.min.css') }}" />
     @yield('style')
+    <script>
+        window.isAuthenticated = "{{ auth()->check() ? 'true' : 'false' }}"
+    </script>
 </head>

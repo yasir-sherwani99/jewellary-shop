@@ -13,79 +13,24 @@
             </div><!-- End .header-search -->
         </div>
         <div class="header-center d-block">
-            <a href="index.html" class="logo align-items-center d-flex flex-column bg-white">
-                <img src="assets/images/demos/demo-25/logo.png" alt="Molla Logo" width="82" height="20">
+            <a href="{{ route('home') }}" class="logo align-items-center d-flex flex-column bg-white">
+                <img src="{{ asset('assets/images/demos/demo-25/logo.png') }}" alt="Molla Logo" width="82" height="20" />
             </a>
         </div><!-- End .header-left -->
 
         <div class="header-right">
-            <a href="wishlist.html" class="wishlist-link d-flex">
+            <a href="{{ route('wishlist.show') }}" class="wishlist-link d-flex">
                 <i class="icon-heart-o"></i>
-                <span class="wishlist-count">3</span>
+                <span class="wishlist-count" id="header-wishlist-count">0</span>
                 <span class="wishlist-txt">My Wishlist</span>
             </a>
 
             <div class="dropdown cart-dropdown">
-                <a href="#" class="dropdown-toggle" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" data-display="static">
+                <a href="{{ route('cart.index') }}" class="dropdown-toggle">
                     <i class="icon-shopping-cart"></i>
-                    <span class="cart-count">2</span>
-                    <span class="cart-txt">$164,00</span>
+                    <span class="cart-count" id="header-cart-count">0</span>
+                    <span class="cart-txt" id="header-cart-total">Rs. 0</span>
                 </a>
-
-                <div class="dropdown-menu dropdown-menu-right">
-                    <div class="dropdown-cart-products">
-                        <div class="product shadow-none">
-                            <div class="product-cart-details">
-                                <h4 class="product-title font-size-normal">
-                                    <a href="product.html">Beige knitted elastic runner shoes</a>
-                                </h4>
-
-                                <span class="cart-product-info">
-                                    <span class="cart-product-qty">1</span>
-                                    x $84.00
-                                </span>
-                            </div><!-- End .product-cart-details -->
-
-                            <figure class="product-image-container">
-                                <a href="product.html" class="product-image">
-                                    <img src="assets/images/products/cart/product-1.jpg" alt="product">
-                                </a>
-                            </figure>
-                            <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                        </div><!-- End .product -->
-
-                        <div class="product shadow-none">
-                            <div class="product-cart-details">
-                                <h4 class="product-title font-size-normal">
-                                    <a href="product.html">Blue utility pinafore denim dress</a>
-                                </h4>
-
-                                <span class="cart-product-info">
-                                    <span class="cart-product-qty">1</span>
-                                    x $76.00
-                                </span>
-                            </div><!-- End .product-cart-details -->
-
-                            <figure class="product-image-container">
-                                <a href="product.html" class="product-image">
-                                    <img src="{{ asset('assets/images/products/cart/product-2.jpg') }}" alt="product" />
-                                </a>
-                            </figure>
-                            <a href="#" class="btn-remove" title="Remove Product"><i class="icon-close"></i></a>
-                        </div><!-- End .product -->
-                    </div><!-- End .cart-product -->
-
-                    <div class="dropdown-cart-total">
-                        <span>Total</span>
-
-                        <span class="cart-total-price">$160.00</span>
-                    </div><!-- End .dropdown-cart-total -->
-
-                    <div class="dropdown-cart-action">
-                        <a href="cart.html" class="btn font-size-normal letter-spacing-large btn-primary">View Cart</a>
-                        <a href="checkout.html" class="btn font-size-normal letter-spacing-large btn-outline-primary-2"><span>Checkout</span><i class="icon-long-arrow-right"></i></a>
-                    </div><!-- End .dropdown-cart-total -->
-                </div><!-- End .dropdown-menu -->
             </div><!-- End .cart-dropdown -->
         </div>
     </div><!-- End .container -->

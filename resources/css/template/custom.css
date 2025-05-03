@@ -1,0 +1,35 @@
+.input-spinner {
+    display: inline-flex;
+    align-items: center;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    overflow: hidden;
+    width: fit-content;
+}
+.input-spinner button {
+    background-color: #f0f0f0;
+    border: none;
+    width: 26px;
+    height: 32px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    cursor: pointer;
+    font-size: 16px;
+}
+.input-spinner input[type="number"] {
+    height: 40px;
+    width: 60px;
+    max-width: 100%;
+    padding: 0;
+    border-color: #dadada;
+    background-color: #fff;
+    margin: 0;
+}
+.icon-minus::before {
+    content: "-";
+}
+.icon-plus::before {
+    content: "+";
+}
+

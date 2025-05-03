@@ -21,6 +21,7 @@ return new class extends Migration
             $table->string('postal_code', 20);
             $table->string('country', 100);
             $table->boolean('is_default')->default(0);
+            $table->timestamps();
         });
     }
 

@@ -1,3 +1,4 @@
+{{-- dd($data['new_arrivals']) --}}
 @extends('layouts.app')
 
 @section('content')
@@ -6,7 +7,7 @@
 
     @include('pages.home.inc.banner_section')
 
-    @include('pages.home.inc.new_arrival_section')
+    @include('pages.home.inc.new_arrival_section', ['newArrivals' => $data['new_arrivals']])
 
     @include('pages.home.inc.best_seller_section')
 

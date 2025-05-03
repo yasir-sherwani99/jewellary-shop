@@ -18,4 +18,24 @@ class Category extends Model
         'picture',
         'is_active'
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | Relations
+    |--------------------------------------------------------------------------
+    */
+    public function products()
+    {
+        return $this->hasMany(Product::class, 'category_id');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
 }

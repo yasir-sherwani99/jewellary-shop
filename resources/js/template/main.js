@@ -1,9 +1,9 @@
 // Main Js File
 $(document).ready(function () {
     'use strict';
-
+ 
     owlCarousels();
-    quantityInputs();
+  //  quantityInputs();
 
     // Header Search Toggle
 
@@ -236,8 +236,8 @@ $(document).ready(function () {
     function quantityInputs() {
         if ( $.fn.inputSpinner ) {
             $("input[type='number']").inputSpinner({
-                decrementButton: '<i class="icon-minus"></i>',
-                incrementButton: '<i class="icon-plus"></i>',
+                decrementButton: '<i class="icon-minus decrement-qty"></i>',
+                incrementButton: '<i class="icon-plus increment-qty"></i>',
                 groupClass: 'input-spinner',
                 buttonsClass: 'btn-spinner',
                 buttonsWidth: '26px'
