@@ -138,6 +138,8 @@ class CheckoutService
         // add shipping address
         $shipping = $order->shippingAddress()->create([
                         'user_id' => !empty($user) ? $user->id : null,
+                        'first_name' => $data['first_name'],
+                        'last_name' => $data['last_name'],
                         'address_type' => 'shipping',
                         'street_address' => $data['address'],
                         'city' => $data['city'],

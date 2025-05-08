@@ -74,7 +74,7 @@ class DashboardController extends Controller
         }
        
         $salesArr['date'] = json_encode($salesDatesArr);
-        $salesArr['sales'] = json_encode($this->order->getLastYearSalesMonthWise($datesData));
+        $salesArr['sales'] = json_encode($this->order->getMonthWiseSales($datesData));
 
         return $salesArr;
     }

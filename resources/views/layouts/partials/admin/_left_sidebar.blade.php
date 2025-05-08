@@ -23,30 +23,34 @@
                             <i class="ti ti-home menu-icon"></i><span>Dashboard</span>
                         </a>
                     </li>
-                    
+                    <?php
+                        $pendingOrders = \App\Models\Order::pending()->count();
+                    ?>
                     <li class="menu-label mt-0">Order <span>Section</span></li>
                     <li class="nav-item">
                         <a class="nav-link" href="#sidebarOrders" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarOrders">
                             <i class="ti ti-shopping-cart menu-icon"></i>
                             <span>Orders</span>
-                            <span class="badge bg-dark text-light ms-2">5</span>
+                            <span class="badge bg-dark text-light ms-2">{{ $pendingOrders }}</span>
                         </a>
-                        <div class="collapse {{ request()->routeIs('admin.orders.new') ? 'navbar-collapse show' : '' }}" id="sidebarOrders">
+                        <div class="collapse {{ request()->routeIs('admin.orders.new') || request()->routeIs('admin.orders.cancel') || request()->routeIs('admin.orders.log') ? 'navbar-collapse show' : '' }}" id="sidebarOrders">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.orders.new') }}" class="nav-link {{ request()->is('orders/new') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.orders.new') }}" class="nav-link {{ request()->routeIs('admin.orders.new') ? 'active' : '' }}">
                                         New Orders
-                                        <span class="badge bg-dark text-light ms-2">5</span>
-                                    </a>
-                                </li>
-                                <!-- <li class="nav-item">
-                                    <a href="{{-- url('orders/cancel?type=member') --}}" class="nav-link {{-- request()->is('orders/cancel') && app('request')->input('type') == 'member' ? 'active' : '' --}}">
-                                        Cancelled Orders
+                                        <span class="badge bg-dark text-light ms-2">{{ $pendingOrders }}</span>
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{-- url('orders/log?type=member') --}}" class="nav-link {{-- (request()->is('orders/log') || request()->routeIs('orders.details')) && app('request')->input('type') == 'member' ? 'active' : '' --}}">Orders Log</a>
-                                </li> -->
+                                    <a href="{{ route('admin.orders.cancel') }}" class="nav-link {{ request()->routeIs('admin.orders.cancel') ? 'active' : '' }}">
+                                        Cancel / Return Orders
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.orders.log') }}" class="nav-link {{ request()->routeIs('admin.orders.log') ? 'active' : '' }}">
+                                        Orders Log
+                                    </a>
+                                </li> 
                             </ul>
                         </div>
                     </li>

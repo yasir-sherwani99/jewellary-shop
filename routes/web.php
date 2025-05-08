@@ -63,6 +63,9 @@ Route::prefix('admin')->group(function () {
         Route::prefix('orders')->group(function () {
             Route::get('/new', [App\Http\Controllers\Admin\OrderController::class, 'new'])->name('admin.orders.new');
             Route::get('/getNewOrders', [App\Http\Controllers\Admin\OrderController::class, 'getNewOrders']);
+            Route::get('/cancel', [App\Http\Controllers\Admin\OrderController::class, 'cancelOrReturned'])->name('admin.orders.cancel');
+            Route::get('/getCancelOrReturnedOrders', [App\Http\Controllers\Admin\OrderController::class, 'getCancelOrReturnedOrders']);
+            Route::get('/log', [App\Http\Controllers\Admin\OrderController::class, 'log'])->name('admin.orders.log');
         });
     });
 });

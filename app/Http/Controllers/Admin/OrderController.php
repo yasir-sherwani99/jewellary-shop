@@ -19,8 +19,6 @@ class OrderController extends Controller
 
     public function new()
     {
-        $orders = $this->order->getPendingOrders();
-        dd($orders);
         return view('pages.admin.orders.new');
     }
 
@@ -34,8 +32,9 @@ class OrderController extends Controller
             foreach($orders as $key => $order) {
                 $orderArray[] = [
                     'id' => $order->id,
-                    'user' => isset($order->user_id) ? $order->user->first_name . " " . $order->user->last_name : 'Guest User',
+                    'user' => $order->shippingAddress->first_name . " " . $order->shippingAddress->last_name,
                     'order_num' => $order->order_number,
+                    'payment_method' => $order->payment_method,
                     'date' => Carbon::parse($order->order_date)->toFormattedDateString(),
                     'total' => $order->total_amount,
                     'status' => $order->status,
@@ -45,5 +44,70 @@ class OrderController extends Controller
         }
 
         return json_encode($orderArray);
+    }
+
+    public function cancelOrReturned()
+    {
+        return view('pages.admin.orders.cancel');
+    }
+
+    public function getCancelOrReturnedOrders()
+    {
+        $orderArray = [];
+
+        $orders = $this->order->getCancelOrReturnedOrders();
+
+        if(count($orders) > 0) {
+            foreach($orders as $key => $order) {
+                $orderArray[] = [
+                    'id' => $order->id,
+                    'user' => $order->shippingAddress->first_name . " " . $order->shippingAddress->last_name,
+                    'order_num' => $order->order_number,
+                    'payment_method' => $order->payment_method,
+                    'date' => Carbon::parse($order->order_date)->toFormattedDateString(),
+                    'total' => $order->total_amount,
+                    'status' => $order->status,
+                    'details' => $order->id
+                ];
+            }
+        }
+
+        return json_encode($orderArray);        
+    }
+
+    public function log()
+    {
+        // get order stats
+        $stats = $this->order->getOrderStats();
+        // get order chart data
+        $this->getOrdersChartData();
+
+        return view('pages.admin.orders.log', [
+            'stats' => $stats
+        ]);
+    }
+
+    public function getOrdersChartData()
+    {
+        $months = now()->subMonths(12)->monthsUntil(now());
+        $datesData = [];
+        $orderDates = [];
+
+        foreach ($months as $mon) {
+
+            $datesData[] = [
+                'month' => $mon->month,
+                'year' => $mon->year,
+            ];
+
+            $date = $mon->format('M Y');
+            array_push($orderDates, $date);
+        }
+
+        $orderDatesFinal = json_encode($orderDates);
+        view()->share('orderDates', $orderDatesFinal);
+
+        $orderData = json_encode($this->order->countMonthWiseOrders($datesData));
+        view()->share('orderData', $orderData);
     }
 }

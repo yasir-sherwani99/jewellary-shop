@@ -12,7 +12,7 @@
 
 @section('content')
 
-    @include('layouts.partials.admin._breadcrumb', ['title' => "New Orders", 'section' => "Orders", 'page' => 'New'])
+    @include('layouts.partials.admin._breadcrumb', ['title' => "Cancel / Return Orders", 'section' => "Orders", 'page' => 'Cancel / Return'])
 
     <div class="row">
         <div class="col-12">
@@ -36,7 +36,7 @@
     <script>
         let table = new Tabulator("#datatable-orders", {
             height: "100%",
-            ajaxURL:`/admin/orders/getNewOrders`,
+            ajaxURL:`/admin/orders/getCancelOrReturnedOrders`,
             layout:"fitColumns",      //fit columns to width of table
             responsiveLayout:"collapse",  //hide columns that dont fit on the table
             pagination:"local",       //paginate the data

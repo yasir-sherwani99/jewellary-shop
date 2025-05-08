@@ -41,11 +41,20 @@ class OrderRepository implements OrderRepositoryInterface
     public function getPendingOrders(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->order
-                    ->with(['items.product.images', 'shippingAddress'])
+                    ->with(['shippingAddress'])
                     ->pending()
                     ->sort('desc')
                     ->get();
         
+    }
+
+    public function getCancelOrReturnedOrders(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->order
+                    ->with(['shippingAddress'])
+                    ->whereIn('status', ['cancelled', 'returned'])
+                    ->sort('desc')
+                    ->get();
     }
 
     public function getTotalRevenue(): float
@@ -74,6 +83,16 @@ class OrderRepository implements OrderRepositoryInterface
                     ->count();
     }
 
+    public function getOrderStats(): array
+    {
+        return [
+            'total' => $this->order->count(),
+            'pending' => $this->order->pending()->count(),
+            'cancelled' => $this->order->whereIn('status', ['cancelled', 'returned'])->count(),
+            'delivered' => $this->order->whereIn('status', ['shipped', 'delivered'])->count()
+        ];
+    }
+
     public function create($data): int
     {
         $this->order->create($data);
@@ -90,11 +109,11 @@ class OrderRepository implements OrderRepositoryInterface
         return $orderr ? $orderr->update($data) : false;
     }
 
-    public function getLastYearSalesMonthWise($periodData): array
+    public function getMonthWiseSales($datesData): array
     {
         $salesArr = [];
-        foreach($periodData as $data) {
-            // sum month wise orders data
+        foreach($datesData as $data) {
+            // sum month wise sales
             $sales = $this->order
                           ->whereIn('status', ['shipped', 'delivered'])
                           ->whereMonth('order_date', $data['month'])
@@ -105,5 +124,22 @@ class OrderRepository implements OrderRepositoryInterface
         }
 
 		return $salesArr;
+    }
+
+    public function countMonthWiseOrders($datesData): array
+    {
+        $orderArr = [];
+        foreach($datesData as $data) {
+            // count month wise orders 
+            $orders = $this->order
+                            ->whereIn('status', ['shipped', 'delivered'])
+                            ->whereMonth('order_date', $data['month'])
+                            ->whereYear('order_date', $data['year'])
+                            ->count();
+            
+            array_push($orderArr, $orders);
+        }
+
+		return $orderArr;
     }
 }
