@@ -1,4 +1,4 @@
-<nav aria-label="breadcrumb" class="breadcrumb-nav border-0 mb-0">
+<nav aria-label="breadcrumb" class="breadcrumb-nav border-bottom-1 mb-2">
     <div class="container d-flex align-items-center">
         <ol class="breadcrumb">
             <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>

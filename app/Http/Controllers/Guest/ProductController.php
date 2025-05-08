@@ -39,21 +39,74 @@ class ProductController extends Controller
         return view('pages.product.show', compact('product', 'relatedProducts'));
     }
 
-    public function getProductCollection($keyword)
+    public function getProductCollection(Request $request)
     {
         $query = Product::query();
 
-        $products = $query->active()->sort('desc')->paginate(9);
+        if ($request->filled('search')) {
+            $query->where(function ($q) use ($request) {
+                $q->where('name', 'like', '%' . $request->search . '%')
+                  ->orWhere('description', 'like', '%' . $request->search . '%');
+            });
+        }
+
+        if($request->filled('q')) {
+            $keyword = $request->query('q');
+            $query->whereHas('category', function($q) use ($keyword) {
+                $q->where('slug', 'LIKE', '%'.$keyword.'%');
+            });
+        }
+
+        $cats = [];
+        if($request->filled('cat')) {
+            $cat = $request->query('cat');
+            $tempArr = explode(',', $cat);
+            if(count($tempArr) > 0) {
+                foreach($tempArr as $temp) {
+                    if(isset($temp) && $temp != "") {
+                        $cats[] = $temp;
+                    }
+                }
+            }
+
+            $query->whereIn('category_id', $cats);
+        }
+
+        if ($request->filled('min_price') && $request->filled('max_price')) {
+            $query->whereBetween('price', [$request->min_price, $request->max_price]);
+        }
+    
+        if ($request->filled('sort')) {
+            switch ($request->sort) {
+                case 'price_low':
+                    $query->orderBy('price', 'asc');
+                    break;
+                case 'price_high':
+                    $query->orderBy('price', 'desc');
+                    break;
+                case 'newest':
+                    $query->orderBy('created_at', 'desc');
+                    break;
+            }
+        }
+
+        $products = $query->with(['category','images','reviews'])->active()->paginate(9);
 
         // categories for side filter
         $categories = $this->category->getAllCategoriesWithProductCount();
-     //   dd($categories);
 
-        return view('pages.product.index', compact('products', 'categories'));
+        return view('pages.collection.index', compact('products', 'categories', 'cats'));
     }
 
-    public function getShop(Request $request)
+    public function getBestSellingCollection()
     {
-        // $query = Product::query();
+        $cats = [];
+
+        $products = $this->product->getBestSellingProductsWithPagination();
+
+        // categories for side filter
+        $categories = $this->category->getAllCategoriesWithProductCount();
+
+        return view('pages.collection.index', compact('products', 'categories', 'cats'));
     }
 }

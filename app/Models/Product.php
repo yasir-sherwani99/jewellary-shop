@@ -79,6 +79,11 @@ class Product extends Model
         return $this->belongsToMany(User::class, 'wishlists', 'user_id', 'product_id');
     }
 
+    public function orderItems()
+    {
+        return $this->hasMany(OrderItem::class, 'product_id');
+    }
+
     /*
     |--------------------------------------------------------------------------
     | SCOPES

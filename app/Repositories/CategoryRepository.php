@@ -17,6 +17,11 @@ class CategoryRepository implements CategoryRepositoryInterface
         $this->category = $category;
     }
 
+    public function getCategoryBySlug($slug): ?Category
+    {
+        return $this->category->where('slug', $slug)->first();
+    }
+
     public function getAllCategoriesWithProductCount(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->category

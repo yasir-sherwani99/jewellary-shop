@@ -11,6 +11,7 @@ use App\Repositories\Interfaces\OrderRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 
 use Carbon\Carbon;
+use Illuminate\Support\Facades\DB;
 
 class CheckoutService
 {
@@ -80,20 +81,18 @@ class CheckoutService
         if (Auth::check()) {
             // user is authenticated
             $user = Auth::user();
-            // update user details if they're different
 
         } elseif ($data['create_account'] == "1") {
+            
             // guest wants to create an account
-            $userData = [
-                'first_name' => $data['first_name'],
-                'last_name' => $data['last_name'],
-                'email' => $data['email'],
-                'password' => $data['password']
-            ];
-
-            $userId = $this->user->create($userData);
-            // get user
-            $user = $this->user->getUserById($userId);
+            $user = $this->user->updateOrCreate(
+                ['email' => $data['email']],
+                [
+                    'first_name' => $data['first_name'],
+                    'last_name' => $data['last_name'],
+                    'password' => $data['password']
+                ]
+            );
 
             Auth::login($user);
         }

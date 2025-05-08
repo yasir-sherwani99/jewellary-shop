@@ -4,8 +4,6 @@
 
     @include('common.page-header', ['title' => 'Shopping Cart', 'subTitle' => ''])
 
-  {{--  @include('common.breadcrumb', ['section' => 'Shopping', 'page' => 'Cart'])  --}}
-
     <div class="page-content mt-4">
         <div class="cart">
 	        <div class="container">
@@ -66,7 +64,7 @@
                                                         value="{{ $item->quantity }}" 
                                                         min="1" 
                                                         max="10"
-                                                        
+                                                        readonly
                                                         data-product-id="{{ $item->product->id }}"
                                                     >
                                                     <button class="btn-spinner increment-qty">
@@ -120,17 +118,23 @@
                                 </tbody>
                             </table><!-- End .table table-summary -->
 
-                          {{--  @if(count($cartData['cart']->items) > 0)  --}}
+                            @if(count($cartData['cart']->items) > 0)
                                 <a 
                                     href="{{ route('checkout.show') }}" 
                                     class="btn btn-outline-primary-2 btn-order btn-block"
                                 >
                                     PROCEED TO CHECKOUT
                                 </a>
-                           {{-- @endif --}}
+                            @endif 
                         </div><!-- End .summary -->
 
-                        <a href="#" class="btn btn-outline-dark-2 btn-block mb-3"><span>CONTINUE SHOPPING</span><i class="icon-refresh"></i></a>
+                        <a 
+                            href="{{ route('product.collection') }}" 
+                            class="btn btn-outline-dark-2 btn-block mb-3"
+                        >
+                            <span>CONTINUE SHOPPING</span>
+                            <i class="icon-refresh"></i>
+                        </a>
                     </aside><!-- End .col-lg-3 -->
                 </div>
             </div>

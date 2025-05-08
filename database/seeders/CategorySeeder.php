@@ -22,8 +22,8 @@ class CategorySeeder extends Seeder
                 'is_active' => 1
             ),
             array(
-                'name' => 'Necklaces',
-                'slug' => 'necklaces',
+                'name' => 'Necklace Sets',
+                'slug' => 'necklace-sets',
                 'icon' => null,
                 'picture' => null,
                 'is_active' => 1
@@ -54,7 +54,7 @@ class CategorySeeder extends Seeder
                 'slug' => 'brooches-&-pins',
                 'icon' => null,
                 'picture' => null,
-                'is_active' => 1
+                'is_active' => 0
             ),
             array(
                 'name' => 'Bangles',
@@ -64,8 +64,29 @@ class CategorySeeder extends Seeder
                 'is_active' => 1
             ),
             array(
-                'name' => 'Bags',
-                'slug' => 'bags',
+                'name' => 'Pendants',
+                'slug' => 'pendants',
+                'icon' => null,
+                'picture' => null,
+                'is_active' => 1
+            ),
+            array(
+                'name' => 'Nose Pins',
+                'slug' => 'nose-pins',
+                'icon' => null,
+                'picture' => null,
+                'is_active' => 1
+            ),
+            array(
+                'name' => 'Men Rings',
+                'slug' => 'men-rings',
+                'icon' => null,
+                'picture' => null,
+                'is_active' => 1
+            ),
+            array(
+                'name' => 'Men Bracelets',
+                'slug' => 'men-bracelets',
                 'icon' => null,
                 'picture' => null,
                 'is_active' => 1

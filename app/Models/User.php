@@ -22,6 +22,7 @@ class User extends Authenticatable
         'first_name',
         'last_name',
         'email',
+        'phone',
         'password',
     ];
 
@@ -56,6 +57,11 @@ class User extends Authenticatable
     public function wishlists()
     {
         return $this->belongsToMany(Product::class, 'wishlists', 'user_id', 'product_id');
+    }
+
+    public function orders()
+    {
+        return $this->hasMany(Order::class, 'user_id');
     }
 
     /*

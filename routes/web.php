@@ -9,9 +9,12 @@ use Illuminate\Support\Facades\Auth;
 |
 */
 Route::get('/', [App\Http\Controllers\Guest\HomeController::class, 'index'])->name('home');
+Route::get('contact', [App\Http\Controllers\Guest\ContactController::class, 'create'])->name('contact.create');
+Route::post('contact', [App\Http\Controllers\Guest\ContactController::class, 'store'])->name('contact.store');
+
 Route::get('product/{product:slug}', [App\Http\Controllers\Guest\ProductController::class, 'show'])->name('product.show');
-Route::get('collections/{collection:slug}', [App\Http\Controllers\Guest\ProductController::class, 'getProductCollection'])->name('product.collection');
-Route::get('shop', [App\Http\Controllers\Guest\ProductController::class, 'getShop']);
+Route::get('collections', [App\Http\Controllers\Guest\ProductController::class, 'getProductCollection'])->name('product.collection');
+Route::get('collection/best-selling', [App\Http\Controllers\Guest\ProductController::class, 'getBestSellingCollection'])->name('product.best-selling');
 
 Route::get('cart-page', [App\Http\Controllers\Guest\CartController::class, 'index'])->name('cart.index');
 Route::prefix('cart')->group(function () {
@@ -32,12 +35,34 @@ Route::get('checkout/order-received', [App\Http\Controllers\Guest\CheckoutContro
 |
 */
 Auth::routes();
-
-Route::middleware(['auth'])->group(function () { 
+Route::middleware(['auth:web'])->group(function () { 
     Route::get('dashboard', [App\Http\Controllers\User\DashboardController::class, 'index'])->name('dashboard');
     Route::prefix('wishlists')->group(function () {
         Route::get('/', [App\Http\Controllers\User\WishlistController::class, 'show'])->name('wishlist.show');
         Route::post('/toggle', [App\Http\Controllers\User\WishlistController::class, 'toggle'])->name('wishlist.toggle');
         Route::post('/remove', [App\Http\Controllers\User\WishlistController::class, 'remove'])->name('wishlist.remove');
+        // update user profile
+		Route::put('profile/{user}', [App\Http\Controllers\User\ProfileController::class, 'updateUserProfile'])->name('user.update');
+        Route::post('password', [App\Http\Controllers\User\ProfileController::class, 'changePassword'])->name('password.store');
+    });
+});
+
+/*
+|
+| Admin Routes
+|
+*/
+Route::prefix('admin')->group(function () {
+    Route::middleware('guest-admin')->group(function() {
+        Route::get('login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'showLoginForm']);
+        Route::post('login', [App\Http\Controllers\Admin\Auth\LoginController::class, 'login'])->name('admin.login.store');
+    }); 
+    Route::middleware('auth-admin')->group(function() {
+        Route::post('logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
+        Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'getDashboard'])->name('admin.dashboard');
+        Route::prefix('orders')->group(function () {
+            Route::get('/new', [App\Http\Controllers\Admin\OrderController::class, 'new'])->name('admin.orders.new');
+            Route::get('/getNewOrders', [App\Http\Controllers\Admin\OrderController::class, 'getNewOrders']);
+        });
     });
 });

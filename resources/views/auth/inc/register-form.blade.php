@@ -1,33 +1,48 @@
-<form method="POST" action="{{ route('register') }}">
+<form method="POST" action="{{ route('register') }}" class="needs-validation" novalidate>
     @csrf
     <div class="row">
         <div class="col-md-6">
             <div class="form-group">
                 <label for="first_name">First Name<span class="text-danger ml-2">*</span></label>
                 <input type="text" class="form-control" id="first_name" name="first_name" value="{{ old('first_name') }}" required />
+                <div class="invalid-feedback">
+                    This is a required field.
+                </div>
             </div><!-- End .form-group -->
         </div>
         <div class="col-md-6">
             <div class="form-group">
                 <label for="last_name">Last Name<span class="text-danger ml-2">*</span></label>
                 <input type="text" class="form-control" id="last_name" name="last_name" value="{{ old('last_name') }}" required />
+                <div class="invalid-feedback">
+                    This is a required field.
+                </div>
             </div><!-- End .form-group -->
         </div>
     </div>
     <div class="form-group">
         <label for="register-email">Email<span class="text-danger ml-2">*</span></label>
         <input type="email" class="form-control" id="register-email" name="email" value="{{ old('email') }}" required />
+        <div class="invalid-feedback">
+            This is a required field.
+        </div>
     </div><!-- End .form-group -->
 
     <div class="form-group">
         <label for="register-password">Password<span class="text-danger ml-2">*</span></label>
         <input type="password" class="form-control" id="register-password" name="password" required />
-        <small>
+        <small>Password must be 6 characters or greater</small>
+        <div class="invalid-feedback">
+            This is a required field.
+        </div>
     </div><!-- End .form-group -->
     
     <div class="form-group">
         <label for="confirm-password">Confirm Password<span class="text-danger ml-2">*</span></label>
         <input type="password" class="form-control" id="confirm-password" name="passwordConfirmation" required />
+        <div class="invalid-feedback">
+            This is a required field.
+        </div>
     </div><!-- End .form-group -->
 
     <div class="form-footer">
@@ -38,7 +53,7 @@
 
         <div class="custom-control custom-checkbox">
             <input type="checkbox" class="custom-control-input" id="register-policy-2" required />
-            <label class="custom-control-label" for="register-policy-2">I agree to the <a href="#">privacy policy</a> *</label>
+            <label class="custom-control-label" for="register-policy-2">I agree to the <a href="#">terms & conditions</a> *</label>
         </div><!-- End .custom-checkbox -->
     </div><!-- End .form-footer -->
 </form>

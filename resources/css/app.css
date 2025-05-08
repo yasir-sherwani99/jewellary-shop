@@ -1,9 +1,9 @@
-@import url('../css/plugins/bootstrap.min.css');
-@import url('../css/plugins/owl.carousel.css');
-@import url('../css/plugins/magnific-popup.css');
-@import url('../css/plugins/jquery.countdown.css');
-@import url('../css/template/style.css');
-@import url('../css/template/custom.css');
-@import url('../css/template/skins/skin-demo-25.css');
-@import url('../css/template/demos/demo-25.css'); 
+@import url('../css/plugins/app/bootstrap.min.css');
+@import url('../css/plugins/app/owl.carousel.css');
+@import url('../css/plugins/app/magnific-popup.css');
+@import url('../css/plugins/app/jquery.countdown.css');
+@import url('../css/template/app/style.css');
+@import url('../css/template/app/custom.css');
+@import url('../css/template/app/skins/skin-demo-25.css');
+@import url('../css/template/app/demos/demo-25.css'); 
 

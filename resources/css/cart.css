@@ -1,7 +1,7 @@
-@import url('../css/plugins/bootstrap.min.css');
-@import url('../css/plugins/owl.carousel.css');
-@import url('../css/plugins/magnific-popup.css');
-@import url('../css/plugins/jquery.countdown.css');
-@import url('../css/template/style.css');
-@import url('../css/plugins/nouislider.css');
-@import url('../css/template/custom.css');
+@import url('../css/plugins/app/bootstrap.min.css');
+@import url('../css/template/app/style.css');
+@import url('../css/plugins/app/owl.carousel.css');
+@import url('../css/plugins/app/magnific-popup.css');
+@import url('../css/plugins/app/jquery.countdown.css');
+/* @import url('../css/plugins/app/nouislider.css'); */
+@import url('../css/template/app/custom.css');

@@ -35,7 +35,7 @@
                         </button>
                     </div>
                 @endif
-                <form method="POST" action="{{ route('checkout.process') }}">
+                <form method="POST" action="{{ route('checkout.process') }}" class="needs-validation" novalidate>
                     @csrf
                     <div class="row">
                         <div class="col-lg-9">
@@ -43,51 +43,71 @@
                             <div class="row">
                                 <div class="col-sm-12">
                                     <label for="email" class="text-dark font-weight-normal">Email<span class="text-danger ml-2">*</span></label>
-                                    <input type="email" id="email" name="email" class="form-control" value="{{ old('email') }}" placeholder="Email" />
+                                    <input type="email" id="email" name="email" class="form-control mb-0" value="{{ old('email') }}" placeholder="Email" required />
+                                    <div class="invalid-feedback">
+                                        This is a required field.
+                                    </div>
                                 </div>
                             </div>
                             <h2 class="checkout-title">Shipping Address</h2><!-- End .checkout-title -->
-                            <div class="row">
+                            <div class="row mb-1">
                                 <div class="col-sm-12">
                                     <label for="country" class="text-dark font-weight-normal">Country<span class="text-danger ml-2">*</span></label>
-                                    <select name="country" id="country" class="form-control">
+                                    <select name="country" id="country" class="form-control mb-0" required>
                                         <option value="pakistan">Pakistan</option>
-                                        <option value="india">India</option>
                                     </select>
+                                    <div class="invalid-feedback">
+                                        This is a required field.
+                                    </div>
                                 </div>
                             </div>
-                            <div class="row">
+                            <div class="row mb-1">
                                 <div class="col-sm-6">
                                     <label for="first_name" class="text-dark font-weight-normal">First Name<span class="text-danger ml-2">*</span></label>
-                                    <input type="text" name="first_name" id="first_name" class="form-control" value="{{ old('first_name') }}" placeholder="First Name" />
+                                    <input type="text" name="first_name" id="first_name" class="form-control mb-0" value="{{ old('first_name') }}" placeholder="First Name" required />
+                                    <div class="invalid-feedback">
+                                        This is a required field.
+                                    </div>
                                 </div><!-- End .col-sm-6 -->
 
                                 <div class="col-sm-6">
                                     <label for="last_name" class="text-dark font-weight-normal">Last Name<span class="text-danger ml-2">*</span></label>
-                                    <input type="text" name="last_name" id="last_name" class="form-control" value="{{ old('last_name') }}" placeholder="Last Name" />
+                                    <input type="text" name="last_name" id="last_name" class="form-control mb-0" value="{{ old('last_name') }}" placeholder="Last Name" required />
+                                    <div class="invalid-feedback">
+                                        This is a required field.
+                                    </div>
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
-                            <div class="row">
+                            <div class="row mb-1">
                                 <div class="col-sm-12">
                                     <label for="address" class="text-dark font-weight-normal">Address<span class="text-danger ml-2">*</span></label>
-                                    <input type="text" name="address" id="address"  class="form-control" value="{{ old('address') }}" placeholder="Address" />
+                                    <input type="text" name="address" id="address"  class="form-control mb-0" value="{{ old('address') }}" placeholder="Address" required />
+                                    <div class="invalid-feedback">
+                                        This is a required field.
+                                    </div>
                                 </div>
                             </div>
 
-                            <div class="row">
+                            <div class="row mb-1">
                                 <div class="col-sm-6">
                                     <label for="city" class="text-dark font-weight-normal">City<span class="text-danger ml-2">*</span></label>
-                                    <input type="text" id="city" name="city" class="form-control" value="{{ old('city') }}" placeholder="City" />
+                                    <input type="text" id="city" name="city" class="form-control mb-0" value="{{ old('city') }}" placeholder="City" required />
+                                    <div class="invalid-feedback">
+                                        This is a required field.
+                                    </div>
                                 </div><!-- End .col-sm-6 -->
 
                                 <div class="col-sm-6">
                                     <label for="state" class="text-dark font-weight-normal">Province / State<span class="text-danger ml-2">*</span></label>
-                                    <input type="text" id="state" name="state" class="form-control" value="{{ old('state') }}" placeholder="Province or state" />
+                                    <input type="text" id="state" name="state" class="form-control mb-0" value="{{ old('state') }}" placeholder="Province or state" required />
+                                    <div class="invalid-feedback">
+                                        This is a required field.
+                                    </div>
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
-                            <div class="row">
+                            <div class="row mb-1">
                                 <div class="col-sm-6">
                                     <label for="postal_code" class="text-dark font-weight-normal">Postal Code (optional)</label>
                                     <input type="text" id="postal_code" name="postal_code" class="form-control" value="{{ old('postal_code') }}" placeholder="Postal code (optional)" />
@@ -95,12 +115,15 @@
 
                                 <div class="col-sm-6">
                                     <label for="phone" class="text-dark font-weight-normal">Phone<span class="text-danger ml-2">*</span></label>
-                                    <input type="tel" id="phone" name="phone" class="form-control" value="{{ old('phone') }}"  placeholder="Phone" />
+                                    <input type="tel" id="phone" name="phone" class="form-control mb-0" value="{{ old('phone') }}"  placeholder="Phone" required />
+                                    <div class="invalid-feedback">
+                                        This is a required field.
+                                    </div>
                                 </div><!-- End .col-sm-6 -->
                             </div><!-- End .row -->
 
                             @if(!auth()->check())
-                                <div class="row">
+                                <div class="row mb-1">
                                     <div class="col-sm-12">
                                         <div class="custom-control custom-checkbox mt-1">
                                             <input 
@@ -117,10 +140,10 @@
                                     </div>
                                 </div>
 
-                                <div class="row {{ old('create_account') ? 'd-block' : 'd-none' }}" id="password_section">
+                                <div class="row {{ old('create_account') ? 'd-block' : 'd-none' }} mb-1" id="password_section">
                                     <div class="col-sm-6">
                                         <label for="password" class="text-dark font-weight-normal">Password</label>
-                                        <input type="password" id="password" name="password" class="form-control" placeholder="Password" />
+                                        <input type="password" id="password" name="password" class="form-control mb-0" placeholder="Password" />
                                         <small>Password must be atleast 6 characters or more.</small>
                                     </div><!-- End .col-sm-6 -->
 

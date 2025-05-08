@@ -4,6 +4,8 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
+use Carbon\Carbon;
+
 class Order extends Model
 {
     public $incrementing = false; 
@@ -60,5 +62,36 @@ class Order extends Model
     public function billingAddress()
     {
         return $this->belongsTo(Address::class, 'billing_address_id');
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+    public function scopeSort($query, $value) 
+    {
+        return $query->orderBy('order_date', $value);
+    }
+
+    public function scopePending($query) 
+    {
+        return $query->where('status', 'pending');
+    }
+
+    /*
+    |--------------------------------------------------------------------------
+    | ACCESSORS
+    |--------------------------------------------------------------------------
+    */
+    public function getOrderDateAttribute($value)
+    {
+        $dt = Carbon::parse($value);
+        return $dt->toFormattedDateString();
     }
 }

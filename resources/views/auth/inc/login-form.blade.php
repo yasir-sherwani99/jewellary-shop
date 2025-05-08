@@ -1,13 +1,19 @@
-<form method="POST" action="{{ route('login') }}">
+<form method="POST" action="{{ route('login') }}" class="needs-validation" novalidate>
     @csrf
     <div class="form-group">
         <label for="singin-email-2">Email<span class="text-danger ml-2">*</span></label>
         <input type="email" class="form-control" id="singin-email-2" name="email" value="{{ old('email') }}" required />
+        <div class="invalid-feedback">
+            This is a required field.
+        </div>
     </div><!-- End .form-group -->
 
     <div class="form-group">
         <label for="singin-password-2">Password<span class="text-danger ml-2">*</span></label>
         <input type="password" class="form-control" id="singin-password-2" name="password" required />
+        <div class="invalid-feedback">
+            This is a required field.
+        </div>
     </div><!-- End .form-group -->
 
     <div class="form-footer">

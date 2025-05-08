@@ -7,7 +7,7 @@
             "autoplayTimeout": 10000,
             "animateOut": "fadeOut"
         }'>
-        <div class="intro-slide bg-image intro-1 d-flex align-items-center" style="background-image: url(assets/images/demos/demo-25/slider/slider-1.jpg); background-color: #222;">
+        <div class="intro-slide bg-image intro-1 d-flex align-items-center" style="background-image: url(assets/images/demos/demo-25/slider/slide3-1920x600-1.jpg); background-color: #222;">
             <div class="container">
                 <div class="intro-content position-static p-3 p-lg-0">
                     <h4 class="intro-subtitle font-size-normal letter-spacing-large text-primary text-uppercase font-weight-normal mb-1"><span>Deal Of The Day</span></h4>
@@ -17,7 +17,7 @@
                 </div>
             </div>
         </div>
-        <div class="intro-slide bg-image intro-2 d-flex align-items-center" style="background-image: url(assets/images/demos/demo-25/slider/slider-2.jpg); background-color: #222;">
+        <!-- <div class="intro-slide bg-image intro-2 d-flex align-items-center" style="background-image: url(assets/images/demos/demo-25/slider/slider-2.jpg); background-color: #222;">
             <div class="container">
                 <div class="row">
                     <div class="col-md-6 offset-md-6">
@@ -29,6 +29,6 @@
                     </div>
                 </div>
             </div>
-        </div>
+        </div> -->
     </div>
 </div>
