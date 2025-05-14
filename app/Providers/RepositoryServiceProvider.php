@@ -11,6 +11,9 @@ use App\Repositories\WishlistRepository;
 use App\Repositories\CategoryRepository;
 use App\Repositories\ContactRepository;
 use App\Repositories\OrderItemRepository;
+use App\Repositories\ProductImageRepository;
+use App\Repositories\OrderAddressRepository;
+use App\Repositories\AdminRepository;
 
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
@@ -19,6 +22,9 @@ use App\Repositories\Interfaces\WishlistRepositoryInterface;
 use App\Repositories\Interfaces\CategoryRepositoryInterface;
 use App\Repositories\Interfaces\ContactRepositoryInterface;
 use App\Repositories\Interfaces\OrderItemRepositoryInterface;
+use App\Repositories\Interfaces\ProductImageRepositoryInterface;
+use App\Repositories\Interfaces\OrderAddressRepositoryInterface;
+use App\Repositories\Interfaces\AdminRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -34,6 +40,9 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(CategoryRepositoryInterface::class, CategoryRepository::class);
         $this->app->bind(ContactRepositoryInterface::class, ContactRepository::class);
         $this->app->bind(OrderItemRepositoryInterface::class, OrderItemRepository::class);
+        $this->app->bind(ProductImageRepositoryInterface::class, ProductImageRepository::class);
+        $this->app->bind(OrderAddressRepositoryInterface::class, OrderAddressRepository::class);
+        $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
     }
 
     /**

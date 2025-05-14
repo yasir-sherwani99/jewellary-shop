@@ -60,12 +60,60 @@ Route::prefix('admin')->group(function () {
     Route::middleware('auth-admin')->group(function() {
         Route::post('logout', [App\Http\Controllers\Admin\Auth\LoginController::class, 'logout'])->name('admin.logout');
         Route::get('/', [App\Http\Controllers\Admin\DashboardController::class, 'getDashboard'])->name('admin.dashboard');
+        // order
         Route::prefix('orders')->group(function () {
             Route::get('/new', [App\Http\Controllers\Admin\OrderController::class, 'new'])->name('admin.orders.new');
             Route::get('/getNewOrders', [App\Http\Controllers\Admin\OrderController::class, 'getNewOrders']);
             Route::get('/cancel', [App\Http\Controllers\Admin\OrderController::class, 'cancelOrReturned'])->name('admin.orders.cancel');
             Route::get('/getCancelOrReturnedOrders', [App\Http\Controllers\Admin\OrderController::class, 'getCancelOrReturnedOrders']);
             Route::get('/log', [App\Http\Controllers\Admin\OrderController::class, 'log'])->name('admin.orders.log');
+            Route::get('/getOrdersLog', [App\Http\Controllers\Admin\OrderController::class, 'getOrdersLog']);
+            Route::get('/{order}/details', [App\Http\Controllers\Admin\OrderController::class, 'details'])->name('admin.orders.details');
+            Route::put('/{order}/details', [App\Http\Controllers\Admin\OrderController::class, 'process'])->name('admin.orders.process');
         });
+        // products
+        Route::resource('products', App\Http\Controllers\Admin\ProductController::class)->names([
+            'index'   => 'admin.products.index',
+            'create'  => 'admin.products.create',
+            'store'   => 'admin.products.store',
+            'show'    => 'admin.products.show',
+            'edit'    => 'admin.products.edit',
+            'update'  => 'admin.products.update',
+            'destroy' => 'admin.products.delete',
+        ]);
+        Route::get('getAllProducts', [App\Http\Controllers\Admin\ProductController::class, 'getAllProducts']);
+        Route::delete('product-image/{image}', [App\Http\Controllers\Admin\ProductController::class, 'deleteProductImage']);
+        // users 
+        Route::get('users', [App\Http\Controllers\Admin\UserController::class, 'index'])->name('admin.users.index');
+        Route::get('getAllUsers', [App\Http\Controllers\Admin\UserController::class, 'getAllUsers']);
+        // customer support
+        Route::get('support', [App\Http\Controllers\Admin\SupportController::class, 'index'])->name('admin.support.index');
+        Route::get('getNewMessages', [App\Http\Controllers\Admin\SupportController::class, 'getNewMessages']);
+        Route::get('support/{support}', [App\Http\Controllers\Admin\SupportController::class, 'show'])->name('admin.support.show');
+        Route::get('support-log', [App\Http\Controllers\Admin\SupportController::class, 'log'])->name('admin.support.log');
+        Route::get('getAllMessages', [App\Http\Controllers\Admin\SupportController::class, 'getAllMessages']);
+        // categories
+        Route::resource('categories', App\Http\Controllers\Admin\CategoryController::class)->names([
+            'index'   => 'admin.categories.index',
+            'create'  => 'admin.categories.create',
+            'store'   => 'admin.categories.store',
+            'show'    => 'admin.categories.show',
+            'edit'    => 'admin.categories.edit',
+            'update'  => 'admin.categories.update',
+            'destroy' => 'admin.categories.delete',
+        ]);
+        Route::get('getAllCategories', [App\Http\Controllers\Admin\CategoryController::class, 'getAllCategories']);
+        Route::get('categories/{category}/status', [App\Http\Controllers\Admin\CategoryController::class, 'changeStatus']);
+        // admins
+        // categories
+        Route::resource('admins', App\Http\Controllers\Admin\AdminController::class)->names([
+            'index'   => 'admin.admins.index',
+            'create'  => 'admin.admins.create',
+            'store'   => 'admin.admins.store',
+            'show'    => 'admin.admins.show',
+            'edit'    => 'admin.admins.edit',
+            'update'  => 'admin.admins.update',
+            'destroy' => 'admin.admins.delete',
+        ]);
     });
 });

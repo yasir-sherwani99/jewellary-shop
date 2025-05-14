@@ -44,16 +44,16 @@
         <div class="col-lg-12">
             <div class="row">
                 <div class="col-lg-3">
-                    @include('pages.admin.orders.inc.stats-box', ['title' => 'Total orders', 'stats' => $stats['total'], 'icon' => 'fas fa-chart-bar'])
+                    @include('common.stats_box', ['title' => 'Total orders', 'stats' => $stats['total'], 'icon' => 'fas fa-chart-bar'])
                 </div>
                 <div class="col-lg-3">
-                    @include('pages.admin.orders.inc.stats-box', ['title' => 'Pending Orders', 'stats' => $stats['pending'], 'icon' => 'fas fa-chart-line'])
+                    @include('common.stats_box', ['title' => 'Pending Orders', 'stats' => $stats['pending'], 'icon' => 'fas fa-shopping-cart'])
                 </div>
                 <div class="col-lg-3">
-                    @include('pages.admin.orders.inc.stats-box' , ['title' => 'Cancel / Return Orders', 'stats' => $stats['cancelled'], 'icon' => 'fas fa-ban'])
+                    @include('common.stats_box' , ['title' => 'Cancel / Return Orders', 'stats' => $stats['cancelled'], 'icon' => 'fas fa-ban'])
                 </div>
                 <div class="col-lg-3">
-                    @include('pages.admin.orders.inc.stats-box' , ['title' => 'Delivered Orders', 'stats' => $stats['delivered'], 'icon' => 'fas fa-recycle'])
+                    @include('common.stats_box' , ['title' => 'Delivered Orders', 'stats' => $stats['delivered'], 'icon' => 'fas fa-truck'])
                 </div>
             </div>                            
         </div>
@@ -81,7 +81,7 @@
     <script>
         let table = new Tabulator("#datatable-orders", {
             height: "100%",
-            ajaxURL:`/admin/orders/getNewOrders`,
+            ajaxURL:`/admin/orders/getOrdersLog`,
             layout:"fitColumns",      //fit columns to width of table
             responsiveLayout:"collapse",  //hide columns that dont fit on the table
             pagination:"local",       //paginate the data
@@ -131,8 +131,7 @@
                 }},
                 {title:"Date", field:"date", hozAlign:"left", vertAlign:"middle", widthGrow:2},
                 {title: "Action", field: "details", vertAlign:"middle", widthGrow:2, formatter:function(cell, formatterParams){
-                    // ${cell.getValue()
-                    return `<a href="#"><button class="btn btn-secondary btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Details</button><a>`;
+                    return `<a href="/admin/orders/${cell.getValue()}/details"><button class="btn btn-secondary btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Details</button><a>`;
                 }}
             ],
         });

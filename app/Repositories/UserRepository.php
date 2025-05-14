@@ -38,6 +38,14 @@ class UserRepository implements UserRepositoryInterface
         return $this->user->updateOrCreate($attributes, $values);
     }
 
+    public function getAllUsers(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->user
+                    ->withCount('orders')
+                    ->sort('desc')
+                    ->get();
+    }
+
     public function create($data): int
     {
         $this->user->create($data);
@@ -52,5 +60,29 @@ class UserRepository implements UserRepositoryInterface
         $userr = $this->find($userId);
 
         return $userr ? $userr->update($data) : false;
+    }
+
+    public function getUsersStats(): array 
+    {
+        return [
+            'total_users' => $this->user->count(),
+            'register_users' => $this->user->whereNotNull('password')->count()
+        ];
+    }
+
+    public function countMonthWiseUsers($datesData): array
+    {
+        $userArr = [];
+        foreach($datesData as $data) {
+            // count month wise users 
+            $users = $this->user
+                        ->whereMonth('created_at', $data['month'])
+                        ->whereYear('created_at', $data['year'])
+                        ->count();
+            
+            array_push($userArr, $users);
+        }
+
+		return $userArr;
     }
 }

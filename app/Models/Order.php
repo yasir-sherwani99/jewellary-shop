@@ -29,8 +29,6 @@ class Order extends Model
         'tax_amount',
         'discount_amount',
         'total_amount',
-        'shipping_address_id',
-        'billing_address_id',
         'notes',
         'status'
     ];
@@ -54,14 +52,9 @@ class Order extends Model
         return $this->hasMany(OrderItem::class);
     }
 
-    public function shippingAddress()
+    public function addresses()
     {
-        return $this->belongsTo(Address::class, 'shipping_address_id');
-    }
-
-    public function billingAddress()
-    {
-        return $this->belongsTo(Address::class, 'billing_address_id');
+        return $this->hasMany(OrderAddress::class, 'order_id');
     }
 
     public function user()

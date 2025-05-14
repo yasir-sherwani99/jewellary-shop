@@ -4,12 +4,15 @@ namespace App\Helpers;
 
 class CustomHelper
 {
-    /**
-     * Create a new class instance.
-     */
-    public function __construct()
+    public static function getNameInitials($name)
     {
-        //
+        if(strlen($name) > 0) {
+            $initial = substr($name, 0, 1);
+        } else {
+            $initial = " ";
+        }
+    
+        return $initial;
     }
 
     public static function formatNumber($n, $precision = 1) 

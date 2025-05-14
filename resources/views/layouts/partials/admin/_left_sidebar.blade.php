@@ -33,10 +33,10 @@
                             <span>Orders</span>
                             <span class="badge bg-dark text-light ms-2">{{ $pendingOrders }}</span>
                         </a>
-                        <div class="collapse {{ request()->routeIs('admin.orders.new') || request()->routeIs('admin.orders.cancel') || request()->routeIs('admin.orders.log') ? 'navbar-collapse show' : '' }}" id="sidebarOrders">
+                        <div class="collapse {{ request()->routeIs('admin.orders.new') || request()->routeIs('admin.orders.details') || request()->routeIs('admin.orders.cancel') || request()->routeIs('admin.orders.log') ? 'navbar-collapse show' : '' }}" id="sidebarOrders">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="{{ route('admin.orders.new') }}" class="nav-link {{ request()->routeIs('admin.orders.new') ? 'active' : '' }}">
+                                    <a href="{{ route('admin.orders.new') }}" class="nav-link {{ request()->routeIs('admin.orders.new') || request()->routeIs('admin.orders.details') ? 'active' : '' }}">
                                         New Orders
                                         <span class="badge bg-dark text-light ms-2">{{ $pendingOrders }}</span>
                                     </a>
@@ -55,38 +55,38 @@
                         </div>
                     </li>
 
-                    <!-- <li class="menu-label mt-0">Product <span>Section</span></li>
+                    <li class="menu-label mt-0">Product <span>Section</span></li>
                     <li class="nav-item">
                         <a class="nav-link" href="#sidebarProduct" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarProduct">
                             <i class="ti ti-briefcase menu-icon"></i>
                             <span>Products</span>
                         </a>
-                        <div class="collapse {{-- request()->routeIs('products.index') || request()->routeIs('products.create') || request()->routeIs('products.edit') || request()->routeIs('products.show') || request()->routeIs('products.images.index') || request()->routeIs('products.images.create') ? 'navbar-collapse show' : '' --}}" id="sidebarProduct">
+                        <div class="collapse {{ request()->routeIs('admin.products.index') || request()->routeIs('admin.products.create') || request()->routeIs('admin.products.edit') || request()->routeIs('admin.products.show') ? 'navbar-collapse show' : '' }}" id="sidebarProduct">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="{{-- route('products.index') --}}" class="nav-link {{-- request()->routeIs('products.index') || request()->routeIs('products.edit') || request()->routeIs('products.show') || request()->routeIs('products.images.index') || request()->routeIs('products.images.create') ? 'active' : '' --}}">
+                                    <a href="{{ route('admin.products.index') }}" class="nav-link {{ request()->routeIs('admin.products.index') || request()->routeIs('admin.products.edit') || request()->routeIs('admin.products.show') ? 'active' : '' }}">
                                         Products List
                                     </a>
                                 </li>                               
                                 <li class="nav-item">
-                                    <a href="{{-- route('products.create') --}}" class="nav-link {{-- request()->routeIs('products.create') ? 'active' : '' --}}">
+                                    <a href="{{ route('admin.products.create') }}" class="nav-link {{ request()->routeIs('admin.products.create') ? 'active' : '' }}">
                                         New Product
                                     </a>
                                 </li>
                             </ul>
                         </div>
                     </li>
-
+                    
                     <li class="menu-label mt-0">User <span>Section</span></li>
                     <li class="nav-item">
                         <a class="nav-link" href="#sidebarUser" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarUser">
                             <i class="ti ti-user menu-icon"></i>
                             <span>Users/Clients</span>
                         </a>
-                        <div class="collapse {{-- request()->routeIs('users.index') || request()->routeIs('users.profile') || request()->routeIs('guests.index') ? 'navbar-collapse show' : '' --}}" id="sidebarUser">
+                        <div class="collapse {{ request()->routeIs('admin.users.index') ? 'navbar-collapse show' : '' }}" id="sidebarUser">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="{{-- route('users.index') --}}" class="nav-link {{-- request()->routeIs('users.index') || request()->routeIs('users.profile') ? 'active' : '' --}}">
+                                    <a href="{{ route('admin.users.index') }}" class="nav-link {{ request()->routeIs('admin.users.index') ? 'active' : '' }}">
                                         Users List
                                     </a>
                                 </li>
@@ -94,19 +94,28 @@
                         </div>
                     </li>
                     
+                    <?php
+                        $unreadMsgs = \App\Models\Contact::unread()->count();
+                    ?>
+
                     <li class="menu-label mt-0">Customer Support <span>Section</span></li>
                     <li class="nav-item">
                         <a class="nav-link" href="#sidebarSupport" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarSupport">
                             <i class="ti ti-help menu-icon"></i>
                             <span>Support</span>
-                            <span class="badge bg-dark text-light ms-2">3</span>
+                            <span class="badge bg-dark text-light ms-2">{{ $unreadMsgs }}</span>
                         </a>
-                        <div class="collapse {{-- request()->routeIs('support.open') || request()->routeIs('support.user-feedback') || request()->routeIs('support.admin-feedback') || request()->routeIs('support.close') || request()->routeIs('support.log') || request()->routeIs('ticket.details') || request()->routeIs('messages.index') || request()->routeIs('message.details') ? 'navbar-collapse show' : '' --}}" id="sidebarSupport">
+                        <div class="collapse {{ request()->routeIs('admin.support.index') || request()->routeIs('admin.support.show') || request()->routeIs('admin.support.log') ? 'navbar-collapse show' : '' }}" id="sidebarSupport">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="{{-- route('support.open') --}}" class="nav-link {{-- request()->routeIs('support.open') || request()->routeIs('ticket.details') ? 'active' : '' --}}">
-                                        Open Tickets
-                                        <span class="badge bg-dark text-light ms-2">3</span>
+                                    <a href="{{ route('admin.support.index') }}" class="nav-link {{ request()->routeIs('admin.support.index') || request()->routeIs('admin.support.show') ? 'active' : '' }}">
+                                        Unread Messages
+                                        <span class="badge bg-dark text-light ms-2">{{ $unreadMsgs }}</span>
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.support.log') }}" class="nav-link {{ request()->routeIs('admin.support.log') ? 'active' : '' }}">
+                                        Messages Log
                                     </a>
                                 </li>
                             </ul>
@@ -119,13 +128,19 @@
                             <i class="ti ti-settings menu-icon"></i>
                             <span>Settings</span>
                         </a>
-                        <div class="collapse {{-- request()->routeIs('settings.index') || request()->routeIs('settings.edit') || request()->routeIs('settings.pages.edit') || request()->is('setting/page/privacy-policy') || request()->is('setting/page/terms-and-conditions') ? 'navbar-collapse show' : '' --}}" id="sidebarSettings">
+                        <div class="collapse {{ request()->routeIs('admin.categories.index') || request()->routeIs('admin.categories.create') || request()->routeIs('admin.categories.edit') || request()->routeIs('admin.admins.index') || request()->routeIs('admin.admins.edit') || request()->routeIs('admin.admins.create') ? 'navbar-collapse show' : '' }}" id="sidebarSettings">
                             <ul class="nav flex-column">
                                 <li class="nav-item">
-                                    <a href="{{-- route('settings.index') --}}" class="nav-link {{-- request()->routeIs('settings.index') || request()->routeIs('settings.edit') ? 'active' : '' --}}">
-                                        General Settings
+                                    <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.index') || request()->routeIs('admin.categories.create') || request()->routeIs('admin.categories.edit') ? 'active' : '' }}">
+                                        Categories
                                     </a>
                                 </li>
+                                <li class="nav-item">
+                                    <a href="{{ route('admin.admins.index') }}" class="nav-link {{ request()->routeIs('admin.admins.index') || request()->routeIs('admin.admins.edit') || request()->routeIs('admin.admins.create') ? 'active' : '' }}">
+                                        Admins
+                                    </a>
+                                </li>
+                                <!--
                                 <li class="nav-item">
                                     <a href="{{-- route('settings.pages.edit', 'privacy-policy') --}}" class="nav-link {{-- request()->is('setting/page/privacy-policy') ? 'active' : '' --}}">
                                         Privacy Policy
@@ -135,11 +150,11 @@
                                     <a href="{{-- route('settings.pages.edit', 'terms-and-conditions') --}}" class="nav-link {{-- request()->is('setting/page/terms-and-conditions') ? 'active' : '' --}}">
                                         Terms of Use
                                     </a>
-                                </li>
+                                </li> -->
                             </ul>
                         </div>
                     </li>
-                    
+                    <!--
                     <li class="nav-item">
                         <a class="nav-link" href="#sidebarAdmin" data-bs-toggle="collapse" role="button" aria-expanded="false" aria-controls="sidebarAdmin">
                             <i class="ti ti-user-check menu-icon"></i>

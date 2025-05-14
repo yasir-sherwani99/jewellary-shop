@@ -26,4 +26,21 @@ class ContactRepository implements ContactRepositoryInterface
     {
         return $this->contact->create($data);
     }
+
+    public function update($data, $ticketId): bool
+    {
+        $message = $this->find($ticketId);
+
+        return $message ? $message->update($data) : false;
+    }
+
+    public function getUnreadMsgs(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->contact->unread()->get();
+    }
+
+    public function getAllMessages(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->contact->get();
+    }
 }

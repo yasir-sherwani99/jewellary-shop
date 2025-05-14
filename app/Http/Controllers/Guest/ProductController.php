@@ -93,7 +93,7 @@ class ProductController extends Controller
         $products = $query->with(['category','images','reviews'])->active()->paginate(9);
 
         // categories for side filter
-        $categories = $this->category->getAllCategoriesWithProductCount();
+        $categories = $this->category->getAllActiveCategoriesWithProductCount();
 
         return view('pages.collection.index', compact('products', 'categories', 'cats'));
     }
@@ -105,7 +105,7 @@ class ProductController extends Controller
         $products = $this->product->getBestSellingProductsWithPagination();
 
         // categories for side filter
-        $categories = $this->category->getAllCategoriesWithProductCount();
+        $categories = $this->category->getAllActiveCategoriesWithProductCount();
 
         return view('pages.collection.index', compact('products', 'categories', 'cats'));
     }

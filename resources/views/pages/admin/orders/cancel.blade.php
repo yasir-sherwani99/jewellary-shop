@@ -86,8 +86,7 @@
                 }},
                 {title:"Date", field:"date", hozAlign:"left", vertAlign:"middle", widthGrow:2},
                 {title: "Action", field: "details", vertAlign:"middle", widthGrow:2, formatter:function(cell, formatterParams){
-                    // ${cell.getValue()
-                    return `<a href="#"><button class="btn btn-secondary btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Details</button><a>`;
+                    return `<a href="/admin/orders/${cell.getValue()}/details"><button class="btn btn-secondary btn-sm" style="--bs-btn-padding-y: .25rem; --bs-btn-padding-x: .5rem; --bs-btn-font-size: .75rem;">Details</button><a>`;
                 }}
             ],
         });

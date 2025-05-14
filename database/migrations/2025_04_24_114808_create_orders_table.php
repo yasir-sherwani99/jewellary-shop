@@ -23,15 +23,11 @@ return new class extends Migration
             $table->decimal('tax_amount', 10, 2)->default(0);
             $table->decimal('discount_amount', 10, 2)->default(0);
             $table->decimal('total_amount', 10, 2);
-            $table->unsignedBigInteger('shipping_address_id')->nullable();
-            $table->unsignedBigInteger('billing_address_id')->nullable();
             $table->string('notes', 2500)->nullable();
             $table->enum('status', ['pending', 'processing', 'shipped', 'delivered', 'cancelled', 'returned'])->default('pending');
             $table->timestamps();
 
             $table->foreign('user_id')->references('id')->on('users');
-            $table->foreign('shipping_address_id')->references('id')->on('addresses');
-            $table->foreign('billing_address_id')->references('id')->on('addresses');
         });
     }
 

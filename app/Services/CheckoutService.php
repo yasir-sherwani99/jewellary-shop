@@ -95,6 +95,18 @@ class CheckoutService
             );
 
             Auth::login($user);
+            
+        } else {
+
+            // guest wants to create an account
+            $user = $this->user->updateOrCreate(
+                ['email' => $data['email']],
+                [
+                    'first_name' => $data['first_name'],
+                    'last_name' => $data['last_name']
+                ]
+            );
+
         }
 
         $orderId = Str::orderedUuid();
@@ -119,6 +131,7 @@ class CheckoutService
 
         // create order
         $this->order->create($orderData);
+        
         // get order
         $order = $this->order->getOrderById($orderId);
         
@@ -135,22 +148,21 @@ class CheckoutService
             }
         }
 
-        // add shipping address
-        $shipping = $order->shippingAddress()->create([
-                        'user_id' => !empty($user) ? $user->id : null,
-                        'first_name' => $data['first_name'],
-                        'last_name' => $data['last_name'],
-                        'address_type' => 'shipping',
-                        'street_address' => $data['address'],
-                        'city' => $data['city'],
-                        'state' => $data['state'],
-                        'postal_code' => $data['postal_code'],
-                        'country' => $data['country'],
-                        'is_default' => 1,
-                    ]);
-
-        // update order shipping_address_id
-        $this->order->update(['shipping_address_id' => $shipping->id], $orderId);
+        // store order shipping addresses
+        $order->addresses()->create([
+            'order_id' => $orderId,
+            'address_type' => 'shipping',
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'email' => $data['email'],
+            'street_address' => $data['address'],
+            'city' => $data['city'],
+            'state' => $data['state'],
+            'postal_code' => $data['postal_code'],
+            'country' => $data['country'],
+            'phone' => $data['phone'],
+            'is_default' => 1,
+        ]);
 
         return $order;
     }

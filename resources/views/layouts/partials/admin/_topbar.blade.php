@@ -8,7 +8,7 @@
                     aria-haspopup="false" aria-expanded="false">
                     <div class="d-flex align-items-center">
                         <img 
-                            src="{{-- asset(auth()->guard('admin')->user()->photo) --}}" 
+                            src="{{ asset(auth()->guard('admin')->user()->photo) }}" 
                             alt="profile-user" 
                             class="rounded-circle me-2 thumb-sm" 
                             onerror="this.onerror=null;this.src='{{ asset('admin-assets/images/users/user-vector.png') }}';" 
@@ -22,7 +22,7 @@
                     </div>
                 </a>
                 <div class="dropdown-menu dropdown-menu-end">
-                    <a class="dropdown-item" href="{{-- route('admins.edit', auth()->guard('admin')->user()->id) --}}">
+                    <a class="dropdown-item" href="{{ route('admin.admins.edit', auth()->guard('admin')->user()->id) }}">
                         <i class="ti ti-user font-16 me-1 align-text-bottom"></i> Edit Profile
                     </a>
                     <a class="dropdown-item" href="{{-- route('password.create') --}}"><i class="ti ti-settings font-16 me-1 align-text-bottom"></i> Password</a>

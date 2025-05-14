@@ -26,7 +26,7 @@ class OrderRepository implements OrderRepositoryInterface
 
     public function getOrderById($orderId): ?\App\Models\Order
     {
-        return $this->order->with('items.product.images')->find($orderId);
+        return $this->order->with(['items.product.images', 'addresses'])->find($orderId);
     }
 
     public function getUserOrders($userId): \Illuminate\Database\Eloquent\Collection
@@ -38,10 +38,18 @@ class OrderRepository implements OrderRepositoryInterface
                     ->get();
     }
 
+    public function getAllOrders(): \Illuminate\Database\Eloquent\Collection
+    {
+        return $this->order
+                    ->with(['user'])
+                    ->sort('desc')
+                    ->get();
+    }
+
     public function getPendingOrders(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->order
-                    ->with(['shippingAddress'])
+                    ->with(['user'])
                     ->pending()
                     ->sort('desc')
                     ->get();
@@ -51,7 +59,7 @@ class OrderRepository implements OrderRepositoryInterface
     public function getCancelOrReturnedOrders(): \Illuminate\Database\Eloquent\Collection
     {
         return $this->order
-                    ->with(['shippingAddress'])
+                    ->with(['user'])
                     ->whereIn('status', ['cancelled', 'returned'])
                     ->sort('desc')
                     ->get();
@@ -93,13 +101,9 @@ class OrderRepository implements OrderRepositoryInterface
         ];
     }
 
-    public function create($data): int
+    public function create($data): \App\Models\Order
     {
-        $this->order->create($data);
-
-        $id = DB::getPdo()->lastInsertId();
-        
-        return $id;
+        return $this->order->create($data);
     }
 
     public function update($data, $orderId): bool

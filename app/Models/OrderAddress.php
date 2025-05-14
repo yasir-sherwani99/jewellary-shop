@@ -4,7 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 
-class Address extends Model
+class OrderAddress extends Model
 {
     /**
      * The attributes that are mass assignable.
@@ -12,25 +12,27 @@ class Address extends Model
      * @var array
      */
     protected $fillable = [
-        'user_id',
+        'order_id',
+        'address_type',
         'first_name',
         'last_name',
-        'address_type',
+        'email',
         'street_address',
         'city',
         'state',
         'postal_code',
         'country',
+        'phone',
         'is_default'
     ];
 
     /*
     |--------------------------------------------------------------------------
-    | MUTATORS
+    | Relations
     |--------------------------------------------------------------------------
     */
-    public function setCountryAttribute($value)
+    public function order()
     {
-        $this->attributes['country'] = ucfirst($value);
+        return $this->belongsTo(Order::class);
     }
 }

@@ -37,8 +37,7 @@ class HomeController extends Controller
         // best sellers
         $data['best_sellers'] = $this->product->getBestSellingProducts();
         // collections by categories
-        $data['collections'] = $this->category->getAllCategoriesWithProductCount();
-    //    dd($data);
+        $data['collections'] = $this->category->getAllActiveCategoriesWithProductCount();
 
         return view('pages.home.index', compact('data'));
     }

@@ -19,4 +19,14 @@ class Contact extends Model
         'message',
         'is_read'
     ];
+
+    /*
+    |--------------------------------------------------------------------------
+    | SCOPES
+    |--------------------------------------------------------------------------
+    */
+    public function scopeUnread($query)
+    {
+        return $query->where('is_read', 0);
+    }
 }

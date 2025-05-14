@@ -89,14 +89,24 @@ class Product extends Model
     | SCOPES
     |--------------------------------------------------------------------------
     */
+    public function scopeActive($query)
+    {
+        return $query->where('is_active', 1);
+    }
+
     public function scopeNewArrivals($query, $days = 30)
     {
         return $query->where('created_at', '>=', now()->subDays($days));
     }
 
-    public function scopeActive($query)
+    public function scopeInStock($query)
     {
-        return $query->where('is_active', 1);
+        return $query->where('stock_quantity', '>', 0);
+    }
+
+    public function scopeOutOfStock($query)
+    {
+        return $query->where('stock_quantity', '=', 0);
     }
 
     public function scopeSort($query, $value) 
