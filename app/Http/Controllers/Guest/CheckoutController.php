@@ -37,12 +37,8 @@ class CheckoutController extends Controller
         }
 
         $subtotal = $this->cartService->getSubtotal();
-        // shipping type i.e. free, standard or express
-        $shippingType = 'free';
-        // tax country
-        $country = "Pakistan";
-
-        $totals = $this->checkoutService->calculateTotals($subtotal,  $shippingType, $country);
+        
+        $totals = $this->checkoutService->calculateTotals($subtotal);
         
         return view('pages.checkout.show', [
             'cart' => $cart,
@@ -63,12 +59,7 @@ class CheckoutController extends Controller
      
         $subtotal = $this->cartService->getSubtotal();
 
-        // shipping type i.e. free, standard or express
-        $shippingType = 'free';
-        // tax country
-        $country = "Pakistan";
-
-        $totals = $this->checkoutService->calculateTotals($subtotal,  $shippingType, $country);
+        $totals = $this->checkoutService->calculateTotals($subtotal);
         // create order
         $order = $this->checkoutService->createOrder($request, $totals, $cart['cart']);
 

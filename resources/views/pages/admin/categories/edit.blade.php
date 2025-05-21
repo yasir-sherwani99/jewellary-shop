@@ -5,7 +5,7 @@
 
 @section('content')
 
-    @include('layouts.partials.admin._breadcrumb', ['title' => "Edit Category", 'section' => "Categories", 'page' => 'Edit'])
+    @include('layouts.partials.admin._breadcrumb', ['title' => "Edit Category", 'section' => "Settings / Categories", 'page' => 'Edit'])
 
     @if(session()->has('success'))
         <div class="alert alert-success border-0 alert-dismissible fade show" role="alert">

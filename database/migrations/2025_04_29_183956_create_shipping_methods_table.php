@@ -14,8 +14,7 @@ return new class extends Migration
         Schema::create('shipping_methods', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('shipping_type', ['free', 'standard', 'express'])->default('free');
-            $table->string('description')->nullable();
+            $table->string('description', 500)->nullable();
             $table->decimal('price', 10, 2);
             $table->boolean('active')->default(true);
             $table->timestamps();

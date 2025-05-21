@@ -5,7 +5,7 @@
 
 @section('content')
 
-    @include('layouts.partials.admin._breadcrumb', ['title' => "Edit Admin", 'section' => "Admins", 'page' => 'Edit'])
+    @include('layouts.partials.admin._breadcrumb', ['title' => "Edit Admin", 'section' => "Settings / Admins", 'page' => 'Edit'])
 
     @if(session()->has('success'))
         <div class="alert alert-success border-0 alert-dismissible fade show" role="alert">
@@ -87,15 +87,6 @@
                                 <input type="text" class="form-control" id="phone" name="phone" value="{{ $admin->phone }}" placeholder="Enter phone" />
                             </div>
                         </div>
-
-                        <div class="row mb-3">
-                            <div class="col-12">
-                                <label for="images" class="form-label fw-bold">Profile Image </label>
-                                <div class="input-images-1"></div>
-                                <small class="form-text text-muted">Max 1 image allowed, image should not exceed 2MB</small>
-                            </div>
-                        </div>
-
                         <div class="row mb-3">
                             <div class="col-12">
                                 <div class="form-check form-switch form-switch-success">

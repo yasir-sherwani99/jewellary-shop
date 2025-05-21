@@ -14,6 +14,8 @@ use App\Repositories\OrderItemRepository;
 use App\Repositories\ProductImageRepository;
 use App\Repositories\OrderAddressRepository;
 use App\Repositories\AdminRepository;
+use App\Repositories\ShippingMethodRepository;
+use App\Repositories\TaxRateRepository;
 
 use App\Repositories\Interfaces\ProductRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
@@ -25,6 +27,8 @@ use App\Repositories\Interfaces\OrderItemRepositoryInterface;
 use App\Repositories\Interfaces\ProductImageRepositoryInterface;
 use App\Repositories\Interfaces\OrderAddressRepositoryInterface;
 use App\Repositories\Interfaces\AdminRepositoryInterface;
+use App\Repositories\Interfaces\ShippingMethodRepositoryInterface;
+use App\Repositories\Interfaces\TaxRateRepositoryInterface;
 
 class RepositoryServiceProvider extends ServiceProvider
 {
@@ -43,6 +47,8 @@ class RepositoryServiceProvider extends ServiceProvider
         $this->app->bind(ProductImageRepositoryInterface::class, ProductImageRepository::class);
         $this->app->bind(OrderAddressRepositoryInterface::class, OrderAddressRepository::class);
         $this->app->bind(AdminRepositoryInterface::class, AdminRepository::class);
+        $this->app->bind(ShippingMethodRepositoryInterface::class, ShippingMethodRepository::class);
+        $this->app->bind(TaxRateRepositoryInterface::class, TaxRateRepository::class);
     }
 
     /**

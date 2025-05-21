@@ -7,10 +7,18 @@ use Illuminate\Support\Str;
 
 use App\Models\Cart;
 use App\Models\CartItem;
-use App\Models\Product;
+
+use App\Repositories\Interfaces\ProductRepositoryInterface;
 
 class CartService
 {
+    protected $product;
+
+    public function __construct(ProductRepositoryInterface $productRepository)
+    {
+        $this->product = $productRepository;
+    }
+
     public function getCart()
     {
         if (Auth::check()) {
@@ -35,7 +43,11 @@ class CartService
     public function addItem($productId, $quantity = 1)
     {
         $cart = $this->getCart();
-        $product = Product::findOrFail($productId);
+        // get product
+        $product = $this->product->getProductById($productId);
+        if(!$product) {
+            abort(404);
+        }
 
         $existingItem = $cart->items()->where('product_id', $productId)->first();
 

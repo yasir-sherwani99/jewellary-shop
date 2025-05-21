@@ -13,7 +13,6 @@ class ShippingMethod extends Model
      */
     protected $fillable = [
         'name',
-        'shipping_type',
         'description',
         'price',
         'active'
@@ -21,14 +20,19 @@ class ShippingMethod extends Model
 
     /*
     |--------------------------------------------------------------------------
+    | MUTATORS
+    |--------------------------------------------------------------------------
+    */
+    public function setNameAttribute($value)
+    {
+        $this->attributes['name'] = ucfirst($value);
+    }
+
+    /*
+    |--------------------------------------------------------------------------
     | Scopes
     |--------------------------------------------------------------------------
     */
-    public function scopeShippingtype($query, $type)
-    {
-        return $query->where('shipping_type', $type);
-    }
-
     public function scopeActive($query)
     {
         return $query->where('active', true);

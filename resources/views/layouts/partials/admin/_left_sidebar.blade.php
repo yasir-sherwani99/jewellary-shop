@@ -128,7 +128,24 @@
                             <i class="ti ti-settings menu-icon"></i>
                             <span>Settings</span>
                         </a>
-                        <div class="collapse {{ request()->routeIs('admin.categories.index') || request()->routeIs('admin.categories.create') || request()->routeIs('admin.categories.edit') || request()->routeIs('admin.admins.index') || request()->routeIs('admin.admins.edit') || request()->routeIs('admin.admins.create') ? 'navbar-collapse show' : '' }}" id="sidebarSettings">
+                        <div 
+                            class="collapse {{ 
+                                    request()->routeIs('admin.categories.index') 
+                                    || request()->routeIs('admin.categories.create') 
+                                    || request()->routeIs('admin.categories.edit') 
+                                    || request()->routeIs('admin.admins.index') 
+                                    || request()->routeIs('admin.admins.edit') 
+                                    || request()->routeIs('admin.admins.create') 
+                                    || request()->routeIs('admin.shipping-methods.index')
+                                    || request()->routeIs('admin.shipping-methods.create')
+                                    || request()->routeIs('admin.shipping-methods.edit')
+                                    || request()->routeIs('admin.tax-rates.index')
+                                    || request()->routeIs('admin.tax-rates.create')
+                                    || request()->routeIs('admin.tax-rates.edit')
+                                    ? 'navbar-collapse show' : '' 
+                                }}" 
+                                id="sidebarSettings"
+                            >
                             <ul class="nav flex-column">
                                 <li class="nav-item">
                                     <a href="{{ route('admin.categories.index') }}" class="nav-link {{ request()->routeIs('admin.categories.index') || request()->routeIs('admin.categories.create') || request()->routeIs('admin.categories.edit') ? 'active' : '' }}">
@@ -140,17 +157,16 @@
                                         Admins
                                     </a>
                                 </li>
-                                <!--
                                 <li class="nav-item">
-                                    <a href="{{-- route('settings.pages.edit', 'privacy-policy') --}}" class="nav-link {{-- request()->is('setting/page/privacy-policy') ? 'active' : '' --}}">
-                                        Privacy Policy
+                                    <a href="{{ route('admin.shipping-methods.index') }}" class="nav-link {{ request()->routeIs('admin.shipping-methods.index') || request()->routeIs('admin.shipping-methods.edit') || request()->routeIs('admin.shipping-methods.create') ? 'active' : '' }}">
+                                        Shipping Methods
                                     </a>
                                 </li>
                                 <li class="nav-item">
-                                    <a href="{{-- route('settings.pages.edit', 'terms-and-conditions') --}}" class="nav-link {{-- request()->is('setting/page/terms-and-conditions') ? 'active' : '' --}}">
-                                        Terms of Use
+                                    <a href="{{ route('admin.tax-rates.index') }}" class="nav-link {{ request()->routeIs('admin.tax-rates.index') || request()->routeIs('admin.tax-rates.create') || request()->routeIs('admin.tax-rates.edit') ? 'active' : '' }}">
+                                        Tax Rates
                                     </a>
-                                </li> -->
+                                </li> 
                             </ul>
                         </div>
                     </li>

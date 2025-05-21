@@ -132,6 +132,12 @@ class CategoryController extends Controller
     public function changeStatus($catId)
     {
         $category = $this->category->getCategoryById($catId);
+        if(!isset($category) || empty($category)) {
+    		return response()->json([
+                'success' => false,
+                'message' => "Woops! Resource not found!"
+            ], 404);
+    	}
 
         $newStatus = $category->is_active == 1 ? 0 : 1;
 

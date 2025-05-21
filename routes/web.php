@@ -105,7 +105,6 @@ Route::prefix('admin')->group(function () {
         Route::get('getAllCategories', [App\Http\Controllers\Admin\CategoryController::class, 'getAllCategories']);
         Route::get('categories/{category}/status', [App\Http\Controllers\Admin\CategoryController::class, 'changeStatus']);
         // admins
-        // categories
         Route::resource('admins', App\Http\Controllers\Admin\AdminController::class)->names([
             'index'   => 'admin.admins.index',
             'create'  => 'admin.admins.create',
@@ -115,5 +114,30 @@ Route::prefix('admin')->group(function () {
             'update'  => 'admin.admins.update',
             'destroy' => 'admin.admins.delete',
         ]);
+        // shipping methods
+        Route::resource('shipping-methods', App\Http\Controllers\Admin\ShippingMethodController::class)->names([
+            'index'   => 'admin.shipping-methods.index',
+            'create'  => 'admin.shipping-methods.create',
+            'store'   => 'admin.shipping-methods.store',
+            'show'    => 'admin.shipping-methods.show',
+            'edit'    => 'admin.shipping-methods.edit',
+            'update'  => 'admin.shipping-methods.update',
+            'destroy' => 'admin.shipping-methods.delete',
+        ]);
+        Route::patch('/shipping-methods/{id}/toggle', [App\Http\Controllers\Admin\ShippingMethodController::class, 'toggle'])->name('admin.shipping-methods.toggle');
+        // tax rate
+        Route::resource('tax-rates', App\Http\Controllers\Admin\TaxRateController::class)->names([
+            'index'   => 'admin.tax-rates.index',
+            'create'  => 'admin.tax-rates.create',
+            'store'   => 'admin.tax-rates.store',
+            'show'    => 'admin.tax-rates.show',
+            'edit'    => 'admin.tax-rates.edit',
+            'update'  => 'admin.tax-rates.update',
+            'destroy' => 'admin.tax-rates.delete',
+        ]);
+        Route::patch('/tax-rates/{id}/toggle', [App\Http\Controllers\Admin\TaxRateController::class, 'toggle'])->name('admin.tax-rates.toggle');
+        // password
+        Route::get('password', [App\Http\Controllers\Admin\PasswordController::class, 'create'])->name('admin.password.create');
+        Route::post('password', [App\Http\Controllers\Admin\PasswordController::class, 'store'])->name('admin.password.store');
     });
 });

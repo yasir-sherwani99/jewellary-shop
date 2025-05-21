@@ -5,35 +5,40 @@ namespace App\Services;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
-use App\Models\TaxRate;
-use App\Models\ShippingMethod;
 use App\Repositories\Interfaces\OrderRepositoryInterface;
+use App\Repositories\Interfaces\ShippingMethodRepositoryInterface;
+use App\Repositories\Interfaces\TaxRateRepositoryInterface;
 use App\Repositories\Interfaces\UserRepositoryInterface;
 
 use Carbon\Carbon;
-use Illuminate\Support\Facades\DB;
 
 class CheckoutService
 {
     protected $user;
     protected $order;
+    protected $shipping;
+    protected $tax;
 
     public function __construct(
         UserRepositoryInterface $userRepository,
-        OrderRepositoryInterface $orderRepository
+        OrderRepositoryInterface $orderRepository,
+        ShippingMethodRepositoryInterface $shippingMethodRepository,
+        TaxRateRepositoryInterface $taxRateRepository
     ) {
         $this->user = $userRepository;
         $this->order = $orderRepository;
+        $this->shipping = $shippingMethodRepository;
+        $this->tax = $taxRateRepository;
     }
 
     public function getShippingMethods()
     {
-        return ShippingMethod::active()->get();
+        return $this->shipping->getActiveShippingMethods();
     }
 
-    public function getShippingPrice($type = 'free')
+    public function getShippingPrice()
     {
-        $shippingMethod = ShippingMethod::shippingtype($type)->first();
+        $shippingMethod = $this->shipping->getActiveShippingMethod();
 
         if(!$shippingMethod) {
             return 0;
@@ -42,10 +47,10 @@ class CheckoutService
         return $shippingMethod->price;
     }
 
-    public function calculateTax($subtotal, $country)
+    public function calculateTax($subtotal)
     {
-        $taxRate = TaxRate::forAddress($country)->first();
-        
+      //  $taxRate = TaxRate::forAddress($country)->first();
+        $taxRate = $this->tax->getActiveTaxRate();
         if (!$taxRate) {
             return [
                 'rate' => 0,
@@ -59,11 +64,11 @@ class CheckoutService
         ];
     }
 
-    public function calculateTotals($subtotal, $shippingType, $country)
+    public function calculateTotals($subtotal)
     {
-        $shippingPrice = $this->getShippingPrice($shippingType);
+        $shippingPrice = $this->getShippingPrice();
         
-        $tax = $this->calculateTax($subtotal, $country);
+        $tax = $this->calculateTax($subtotal);
         
         return [
             'subtotal' => $subtotal,
@@ -98,7 +103,7 @@ class CheckoutService
             
         } else {
 
-            // guest wants to create an account
+            // no account creation
             $user = $this->user->updateOrCreate(
                 ['email' => $data['email']],
                 [

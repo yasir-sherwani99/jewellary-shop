@@ -5,7 +5,7 @@
 
 @section('content')
 
-    @include('layouts.partials.admin._breadcrumb', ['title' => "Add Category", 'section' => "Settings / Categories", 'page' => 'Add'])
+    @include('layouts.partials.admin._breadcrumb', ['title' => "Edit Shipping Method", 'section' => "Settings / Shipping Methods", 'page' => 'Edit'])
 
     @if(session()->has('success'))
         <div class="alert alert-success border-0 alert-dismissible fade show" role="alert">
@@ -29,32 +29,40 @@
         <div class="col-sm-8">
             <div class="card">
                 <div class="card-header bg-light">
-                    <h4 class="card-title">Add Category</h4>
+                    <h4 class="card-title">Edit Shipping Method</h4>
                 </div><!--end card-header-->
                 <div class="card-body">
-                    <form method="POST" class="needs-validation" enctype="multipart/form-data" action="{{ route('admin.categories.store') }}" novalidate>    
+                    <form method="POST" class="needs-validation" enctype="multipart/form-data" action="{{ route('admin.shipping-methods.update', $shipping->id) }}" novalidate>    
                         @csrf          
+                        @method('PUT')
                         <div class="row mb-3">
                             <div class="col-12">
                                 <label for="name" class="form-label fw-bold">Name <span class="text-danger">*</span></label>
-                                <input type="text" class="form-control" id="name" name="name" value="{{ old('name') }}" placeholder="Enter category name" required />
+                                <input type="text" class="form-control" id="name" name="name" value="{{ $shipping->name }}" placeholder="Enter shipping method name" required />
                                 <div class="invalid-feedback">
-                                    Category name is a required field.
+                                    Shipping method name is a required field.
                                 </div>
                             </div>
                         </div>
-    
+                        <div class="row my-3">
+                            <div class="col-12">
+                                <label for="price" class="form-label fw-bold">Price <span class="text-danger">*</span></label>
+                                <input type="number" class="form-control" id="price" name="price" value="{{ $shipping->price }}" step=".01" placeholder="Enter shipping method price" required />
+                                <small class="form-text text-muted">Enter 0 for free shipping</small>
+                                <div class="invalid-feedback">
+                                    Shipping method price is a required field.
+                                </div>
+                            </div>
+                        </div>
                         <div class="row mb-3">
                             <div class="col-12">
-                                <div class="form-check form-switch form-switch-success">
-                                    <input class="form-check-input" name="active" type="checkbox" id="active" checked />
-                                    <label class="form-check-label" for="active">Active</label>
-                                </div>
+                                <label for="description" class="form-label fw-bold">Description </label>
+                                <textarea class="form-control" id="description" name="description" rows="4" placeholder="Shipping method description">{{ $shipping->description }}</textarea>
                             </div>
                         </div>          
                         <div class="row mt-2">
                             <div class="col-12 text-center">
-                                <button type="submit" class="btn btn-success">Create Category</button>
+                                <button type="submit" class="btn btn-success">Update Shipping Method</button>
                             </div>
                         </div>
                     </form>
